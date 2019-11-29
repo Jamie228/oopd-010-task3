@@ -38,10 +38,5 @@ namespace library_system
             Console.WriteLine(ID + ", " + Title + ", " + Publisher + ", " + DateOfPublication);
         }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
