@@ -13,7 +13,7 @@ namespace library_system
     {
         private string filetype = "JSON";
         private LibraryHelper libraryHelper = new LibraryHelper();
-        private List<Book> books;
+        private List<NonfictionBook> books;
 
         public App()
         {
@@ -39,22 +39,22 @@ namespace library_system
                             {
                                 exisitingData = reader.ReadToEnd();
                             }
-                            books = JsonConvert.DeserializeObject<List<Book>>(exisitingData);
+                            books = JsonConvert.DeserializeObject<List<NonfictionBook>>(exisitingData);
                         }
                         else
                         {
-                            books = new List<Book>();
+                            books = new List<NonfictionBook>();
                         }
                         break;
                     case "XML":
                         if (File.Exists(@"library.xml"))
                         {
-                            var serializer = new XmlSerializer(typeof(List<Book>));
+                            var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
                             using (var reader = new StreamReader(@"library.xml"))
                             {
                                 try
                                 {
-                                    books = (List<Book>)serializer.Deserialize(reader);
+                                    books = (List<NonfictionBook>)serializer.Deserialize(reader);
                                 }
                                 catch
                                 {
@@ -64,7 +64,7 @@ namespace library_system
                         }
                         else
                         {
-                            books = new List<Book>();
+                            books = new List<NonfictionBook>();
                         }
                         break;
                 }
@@ -116,7 +116,7 @@ namespace library_system
                     string publisher = Input("Publisher");
                     string dateOfPublication = Input("Date of publication");
 
-                    books.Add(new Book(title, author, publisher, dateOfPublication, selectedCategory));
+                    books.Add(new NonfictionBook(title, author, publisher, dateOfPublication, selectedCategory, BookType.NonFiction));
 
                     another = Input("Add another? y/n");
                     if (another == "n")
@@ -146,7 +146,7 @@ namespace library_system
 
                 if (filetype == "XML")
                 {
-                    var serializer = new XmlSerializer(typeof(List<Book>));
+                    var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
                     using (var writer = new StreamWriter(@"library.xml"))
                     {
                         serializer.Serialize(writer, books);
