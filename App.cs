@@ -15,6 +15,7 @@ namespace library_system
         private LibraryHelper libraryHelper = new LibraryHelper();
         private List<FictionBook> fictionBooks;
         private List<NonfictionBook> nonfictionBooks;
+        private List<Magazine> magazines;
 
         public App()
         {
@@ -148,32 +149,7 @@ namespace library_system
                         }
                     }
 
-                    if (userBookType == 3)
-                    {
-                        Console.Clear();
-
-                        string title = Input("Title");
-                        string publisher = Input("Publisher");
-                        string dateOfPublication = Input("Date of publication");
-
-                        magazines.Add(new Magazine(title, publisher, dateOfPublication, BookType.Magazine));
-
-                        another = Input("Add another? y/n");
-                        if (another == "n")
-                        {
-                            done = true;
-                        }
-
-                        Console.Clear();
-                        Console.WriteLine("All Non-Fiction Books in library\n");
-                        foreach (var book in nonfictionBooks)
-                        {
-                            book.Display();
-                        }
-
-                    }
-
-                    if (userBookType == 3)
+                    if (userBookType == 2)
                     {
                         Console.Clear();
                         Console.WriteLine("Select a category:");
@@ -231,6 +207,30 @@ namespace library_system
                         Console.Clear();
                         Console.WriteLine("All Non-Fiction Books in library\n");
                         foreach (var book in nonfictionBooks)
+                        {
+                            book.Display();
+                        }
+
+                    }
+
+                    if (userBookType == 3)
+                    {
+
+                        string title = Input("Title");
+                        string publisher = Input("Publisher");
+                        string dateOfPublication = Input("Date of publication");
+
+                        magazines.Add(new Magazine(title, publisher, dateOfPublication, BookType.Magazine));
+
+                        another = Input("Add another? y/n");
+                        if (another == "n")
+                        {
+                            done = true;
+                        }
+
+                        Console.Clear();
+                        Console.WriteLine("All Magazines in library\n");
+                        foreach (var book in magazines)
                         {
                             book.Display();
                         }
