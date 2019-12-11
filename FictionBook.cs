@@ -15,7 +15,7 @@ namespace library_system
         private readonly BookType bookType = new BookType();
 
         static List<string> authors = new List<string>();
-        public string Category { get; set; }
+        public string Genre { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
@@ -26,12 +26,13 @@ namespace library_system
 
         }
 
-        public FictionBook(string title, string author, string publisher, string dateOfPublication, BookType bookType)
+        public FictionBook(string title, string author, string publisher, string dateOfPublication, string genre, BookType bookType)
         {
             Title = title;
             Author = author;
             Publisher = publisher;
             DateOfPublication = dateOfPublication;
+            Genre = genre;
             bookType = BookType.Fiction;
         }
 

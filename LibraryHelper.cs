@@ -9,5 +9,7 @@ namespace library_system
     public class LibraryHelper
     {
         public List<String> Categories = new List<string> { "Programming", "Systems Analysis", "E - Commerce", "Interaction Design", "Web Design" };
+
+        public List<String> Genres = new List<string> { "Crime", "Mystery", "Thriller", "Romance", "Action", "Children's"};
     }
 }

@@ -1,6 +1,6 @@
 [
   {
-    "Category": "Programming",
+    "Genre": null,
     "Title": "The C# Players Guide",
     "Author": "RB Whitaker",
     "Publisher": "Starbound Software",
@@ -8,7 +8,7 @@
     "ID": null
   },
   {
-    "Category": "E-Commerce",
+    "Genre": null,
     "Title": "E-Commerce 2017",
     "Author": "Kenneth Laudon",
     "Publisher": "Pearson",
@@ -16,7 +16,7 @@
     "ID": null
   },
   {
-    "Category": "E-Commerce",
+    "Genre": null,
     "Title": "E-commerce Get It Right!",
     "Author": "Ian Daniel",
     "Publisher": "NeuroDigital",
@@ -24,7 +24,7 @@
     "ID": null
   },
   {
-    "Category": "Interaction Design",
+    "Genre": null,
     "Title": "The Design of Everyday Things",
     "Author": "Don Norman",
     "Publisher": "Hachette Book Group",
@@ -32,7 +32,7 @@
     "ID": null
   },
   {
-    "Category": "Programming",
+    "Genre": null,
     "Title": "Programming the Raspberry Pi",
     "Author": "Simon Monk",
     "Publisher": "McGraw-Hill Education",
@@ -40,7 +40,7 @@
     "ID": null
   },
   {
-    "Category": "Systems Analysis",
+    "Genre": null,
     "Title": "Database Systems: A Practical Approach",
     "Author": "Thomas Connolly",
     "Publisher": "Pearson",
@@ -48,7 +48,7 @@
     "ID": null
   },
   {
-    "Category": "Programming",
+    "Genre": null,
     "Title": "A Student Guide to Object-Oriented Development",
     "Author": "Carol Britton",
     "Publisher": "Butterworth-Heinemann",
@@ -56,7 +56,7 @@
     "ID": null
   },
   {
-    "Category": "Systems Analysis",
+    "Genre": null,
     "Title": "Systems Engineering and Analysis",
     "Author": "Benjamin Blanchard",
     "Publisher": "Pearson",
@@ -64,7 +64,7 @@
     "ID": null
   },
   {
-    "Category": "Programming",
+    "Genre": null,
     "Title": "Clean Code",
     "Author": "Robert Cecil Martin",
     "Publisher": "Prentice Hall",
@@ -72,7 +72,7 @@
     "ID": null
   },
   {
-    "Category": "Programming",
+    "Genre": null,
     "Title": "Adaptive Code: Agile coding with design patterns and SOLID principles",
     "Author": "Gary McLean Hall",
     "Publisher": "Microsoft Press",
@@ -80,7 +80,7 @@
     "ID": null
   },
   {
-    "Category": "Web Design",
+    "Genre": null,
     "Title": "HTML and CSS: Design and Build Websites",
     "Author": "Jon Duckett",
     "Publisher": "John Wiley & Sons",
@@ -88,11 +88,43 @@
     "ID": null
   },
   {
-    "Category": "Interaction Design",
+    "Genre": null,
     "Title": "Don't Make Me Think",
     "Author": "Steve Krug",
     "Publisher": "New Riders",
     "DateOfPublication": "05/08/2009",
+    "ID": null
+  },
+  {
+    "Genre": null,
+    "Title": "E-Commerce!",
+    "Author": "J Williams",
+    "Publisher": "Wiley",
+    "DateOfPublication": "2019",
+    "ID": "E - 01"
+  },
+  {
+    "Genre": "Children's",
+    "Title": "Thomas the Tank",
+    "Author": "??",
+    "Publisher": "??",
+    "DateOfPublication": "??",
+    "ID": null
+  },
+  {
+    "Genre": "Mystery",
+    "Title": "Test",
+    "Author": "Test",
+    "Publisher": "Test",
+    "DateOfPublication": "Test",
+    "ID": null
+  },
+  {
+    "Genre": "Crime",
+    "Title": "CRIME",
+    "Author": "BarryBillFredJames",
+    "Publisher": "DAN",
+    "DateOfPublication": "111",
     "ID": null
   }
 ]

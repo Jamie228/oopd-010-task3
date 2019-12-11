@@ -13,7 +13,8 @@ namespace library_system
     {
         private string filetype = "JSON";
         private LibraryHelper libraryHelper = new LibraryHelper();
-        private List<NonfictionBook> books;
+        private List<FictionBook> fictionBooks;
+        private List<NonfictionBook> nonfictionBooks;
 
         public App()
         {
@@ -39,11 +40,11 @@ namespace library_system
                             {
                                 exisitingData = reader.ReadToEnd();
                             }
-                            books = JsonConvert.DeserializeObject<List<NonfictionBook>>(exisitingData);
+                            fictionBooks = JsonConvert.DeserializeObject<List<FictionBook>>(exisitingData);
                         }
                         else
                         {
-                            books = new List<NonfictionBook>();
+                            fictionBooks = new List<FictionBook>();
                         }
                         break;
                     case "XML":
@@ -54,7 +55,7 @@ namespace library_system
                             {
                                 try
                                 {
-                                    books = (List<NonfictionBook>)serializer.Deserialize(reader);
+                                    fictionBooks = (List<FictionBook>)serializer.Deserialize(reader);
                                 }
                                 catch
                                 {
@@ -64,7 +65,8 @@ namespace library_system
                         }
                         else
                         {
-                            books = new List<NonfictionBook>();
+                            fictionBooks = new List<FictionBook>();
+                            nonfictionBooks = new List<NonfictionBook>();
                         }
                         break;
                 }
@@ -79,84 +81,166 @@ namespace library_system
                 while (!done)
                 {
                     Console.Clear();
-                    Console.WriteLine("Select a category:");
-                    for (int i = 0; i < libraryHelper.Categories.Count; i++)
-                    {
-                        Console.WriteLine(i + ": " + libraryHelper.Categories[i]);
-                    }
+                    Console.WriteLine("Select a book type: ");
+                    Console.WriteLine("1.   Fiction");
+                    Console.WriteLine("2.   Non-Fiction");
+                    int userBookType = Convert.ToInt32(Console.ReadLine());
 
-                    int selectedCategoryID = 0;
-                    bool validID = false;
-                    do
+                    if (userBookType == 1)
                     {
-                        try
+                        Console.Clear();
+                        Console.WriteLine("Select a category:");
+                        for (int i = 0; i < libraryHelper.Genres.Count; i++)
                         {
-                            selectedCategoryID = Convert.ToInt32(Console.ReadLine());
-                            if (selectedCategoryID >= 0 && selectedCategoryID < libraryHelper.Categories.Count)
-                            {
-                                validID = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Option not available. Please try again");
-                            }
+                            Console.WriteLine(i + ": " + libraryHelper.Genres[i]);
                         }
-                        catch (Exception ex)
+
+                        int selectedGenreID = 0;
+                        bool validID = false;
+                        do
                         {
-                            Console.WriteLine(ex);
-                            Console.WriteLine("Please try again");
+                            try
+                            {
+                                selectedGenreID = Convert.ToInt32(Console.ReadLine());
+                                if (selectedGenreID >= 0 && selectedGenreID < libraryHelper.Genres.Count)
+                                {
+                                    validID = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Option not available. Please try again");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex);
+                                Console.WriteLine("Please try again");
+                            }
+                        } while (!validID);
+
+                        string selectedGenre = libraryHelper.Genres[selectedGenreID];
+                        Console.WriteLine("You have sected {0}", selectedGenre);
+
+                        string title = Input("Title");
+                        Console.WriteLine ("How many authors does the book have?");
+                        int authorLoopNo = Convert.ToInt32(Console.ReadLine());
+                        string author = "";
+                        for (int i = 0; i < authorLoopNo; i++)
+                        {
+                            Console.WriteLine("Enter author with comma at end of name if entering more than one author:");
+                            author = author + Console.ReadLine() + " ";
                         }
-                    } while (!validID);
+                        string publisher = Input("Publisher");
+                        string dateOfPublication = Input("Date of publication");
 
-                    string selectedCategory = libraryHelper.Categories[selectedCategoryID];
-                    Console.WriteLine("You have sected {0}", selectedCategory);
+                        fictionBooks.Add(new FictionBook(title, author, publisher, dateOfPublication, selectedGenre, BookType.Fiction));
 
-                    string title = Input("Title");
-                    string author = Input("Author");
-                    string publisher = Input("Publisher");
-                    string dateOfPublication = Input("Date of publication");
-
-                    books.Add(new NonfictionBook(title, author, publisher, dateOfPublication, selectedCategory, BookType.NonFiction));
-
-                    another = Input("Add another? y/n");
-                    if (another == "n")
-                    {
-                        done = true;
+                        another = Input("Add another? y/n");
+                        if (another == "n")
+                        {
+                            done = true;
+                        }
+                        Console.Clear();
+                        Console.WriteLine("All Fiction Books in library\n");
+                        foreach (var book in fictionBooks)
+                        {
+                            book.Display();
+                        }
                     }
 
-                };
-
-                Console.Clear();
-                Console.WriteLine("All books in library\n");
-                foreach (var book in books)
-                {
-                    book.Display();
-                }
-
-
-                if (filetype == "JSON")
-                {
-                    using (StreamWriter file = File.CreateText(@"library.json"))
+                    if (userBookType == 2)
                     {
-                        JsonSerializer serializer = new JsonSerializer();
-                        serializer.Formatting = Formatting.Indented;
-                        serializer.Serialize(file, books);
-                    }
-                }
+                        Console.Clear();
+                        Console.WriteLine("Select a category:");
+                        for (int i = 0; i < libraryHelper.Categories.Count; i++)
+                        {
+                            Console.WriteLine(i + ": " + libraryHelper.Categories[i]);
+                        }
 
-                if (filetype == "XML")
-                {
-                    var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
-                    using (var writer = new StreamWriter(@"library.xml"))
+                        int selectedCategoryID = 0;
+                        bool validID = false;
+                        do
+                        {
+                            try
+                            {
+                                selectedCategoryID = Convert.ToInt32(Console.ReadLine());
+                                if (selectedCategoryID >= 0 && selectedCategoryID < libraryHelper.Categories.Count)
+                                {
+                                    validID = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Option not available. Please try again");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex);
+                                Console.WriteLine("Please try again");
+                            }
+                        } while (!validID);
+
+                        string selectedCategory = libraryHelper.Genres[selectedCategoryID];
+                        Console.WriteLine("You have sected {0}", selectedCategory);
+
+                        string title = Input("Title");
+                        Console.WriteLine ("How many authors does the book have?");
+                        int authorLoopNo = Convert.ToInt32(Console.ReadLine());
+                        string author = "";
+                        for (int i = 0; i < authorLoopNo; i++)
+                        {
+                            Console.WriteLine("Enter author with comma at end of name if entering more than one author:");
+                            author = author + Console.ReadLine() + " ";
+                        }
+                        string publisher = Input("Publisher");
+                        string dateOfPublication = Input("Date of publication");
+
+                        nonfictionBooks.Add(new NonfictionBook(title, author, publisher, dateOfPublication, selectedCategory, BookType.NonFiction));
+
+                        another = Input("Add another? y/n");
+                        if (another == "n")
+                        {
+                            done = true;
+                        }
+
+                        Console.Clear();
+                        Console.WriteLine("All Non-Fiction Books in library\n");
+                        foreach (var book in nonfictionBooks)
+                        {
+                            book.Display();
+                        }
+
+                    }
+
+
+
+
+                    if (filetype == "JSON")
                     {
-                        serializer.Serialize(writer, books);
+                        using (StreamWriter file = File.CreateText(@"library.json"))
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            serializer.Formatting = Formatting.Indented;
+                            serializer.Serialize(file, fictionBooks);
+                        }
                     }
 
-                }
+                    if (filetype == "XML")
+                    {
+                        var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
+                        using (var writer = new StreamWriter(@"library.xml"))
+                        {
+                            serializer.Serialize(writer, fictionBooks);
+                        }
 
-                //Console.WriteLine(itemsSerialized);
-                Console.ReadKey(true);
+                    }
+
+                    //Console.WriteLine(itemsSerialized);
+                    Console.ReadKey(true);
+                }
             }
+
+
         }
         public static string Input(string prompt)
         {
