@@ -123,7 +123,7 @@ namespace library_system
                         Console.WriteLine("You have sected {0}", selectedGenre);
 
                         string title = Input("Title");
-                        Console.WriteLine ("How many authors does the book have?");
+                        Console.WriteLine("How many authors does the book have?");
                         int authorLoopNo = Convert.ToInt32(Console.ReadLine());
                         string author = "";
                         for (int i = 0; i < authorLoopNo; i++)
@@ -185,7 +185,7 @@ namespace library_system
                         Console.WriteLine("You have sected {0}", selectedCategory);
 
                         string title = Input("Title");
-                        Console.WriteLine ("How many authors does the book have?");
+                        Console.WriteLine("How many authors does the book have?");
                         int authorLoopNo = Convert.ToInt32(Console.ReadLine());
                         string author = "";
                         for (int i = 0; i < authorLoopNo; i++)
@@ -236,9 +236,6 @@ namespace library_system
                         }
                     }
 
-
-
-
                     if (filetype == "JSON")
                     {
                         using (StreamWriter file = File.CreateText(@"library.json"))
@@ -263,8 +260,6 @@ namespace library_system
                     Console.ReadKey(true);
                 }
             }
-
-
         }
         public static string Input(string prompt)
         {
