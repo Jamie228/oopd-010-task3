@@ -8,10 +8,10 @@ using System.Xml.Serialization;
 namespace library_system
 {
 
-    public class FictionBook : IUserInterfaceElement
+    public class FictionBook : IUserInterfaceElement //Created to adhere to Open/Closed Principle, as if another book type should be added, then another class can be created
     {
         [XmlIgnore]
-        
+
         private readonly BookType bookType = new BookType();
 
         static List<string> authors = new List<string>();

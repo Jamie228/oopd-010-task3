@@ -148,7 +148,32 @@ namespace library_system
                         }
                     }
 
-                    if (userBookType == 2)
+                    if (userBookType == 3)
+                    {
+                        Console.Clear();
+
+                        string title = Input("Title");
+                        string publisher = Input("Publisher");
+                        string dateOfPublication = Input("Date of publication");
+
+                        magazines.Add(new Magazine(title, publisher, dateOfPublication, BookType.Magazine));
+
+                        another = Input("Add another? y/n");
+                        if (another == "n")
+                        {
+                            done = true;
+                        }
+
+                        Console.Clear();
+                        Console.WriteLine("All Non-Fiction Books in library\n");
+                        foreach (var book in nonfictionBooks)
+                        {
+                            book.Display();
+                        }
+
+                    }
+
+                    if (userBookType == 3)
                     {
                         Console.Clear();
                         Console.WriteLine("Select a category:");
@@ -209,7 +234,6 @@ namespace library_system
                         {
                             book.Display();
                         }
-
                     }
 
 

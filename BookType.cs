@@ -6,6 +6,7 @@ namespace library_system
     public enum BookType
     {
         Fiction,
-        NonFiction
+        NonFiction,
+        Magazine
     }
 }
