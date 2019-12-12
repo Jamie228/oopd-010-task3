@@ -11,7 +11,7 @@ namespace library_system
     {
         [XmlIgnore]
         static List<string> categories = new List<string>();
-        
+        private readonly BookType bookType = new BookType();
         public string Title { get; set; }
         public string Publisher { get; set; }
         public string DateOfPublication { get; set; }

@@ -13,8 +13,6 @@ namespace library_system
         [XmlIgnore]
 
         private readonly BookType bookType = new BookType();
-
-        static List<string> authors = new List<string>();
         public string Genre { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }

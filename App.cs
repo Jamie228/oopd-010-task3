@@ -46,6 +46,8 @@ namespace library_system
                         else
                         {
                             fictionBooks = new List<FictionBook>();
+                            nonfictionBooks = new List<NonfictionBook>();
+                            magazines = new List<Magazine>();
                         }
                         break;
                     case "XML":
@@ -68,6 +70,7 @@ namespace library_system
                         {
                             fictionBooks = new List<FictionBook>();
                             nonfictionBooks = new List<NonfictionBook>();
+                            magazines = new List<Magazine>();
                         }
                         break;
                 }
@@ -85,6 +88,7 @@ namespace library_system
                     Console.WriteLine("Select a book type: ");
                     Console.WriteLine("1.   Fiction");
                     Console.WriteLine("2.   Non-Fiction");
+                    Console.WriteLine("3.   Magazine");
                     int userBookType = Convert.ToInt32(Console.ReadLine());
 
                     if (userBookType == 1)
@@ -147,6 +151,26 @@ namespace library_system
                         {
                             book.Display();
                         }
+
+                        if (filetype == "JSON")
+                        {
+                            using (StreamWriter file = File.CreateText(@"library.json"))
+                            {
+                                JsonSerializer serializer = new JsonSerializer();
+                                serializer.Formatting = Formatting.Indented;
+                                serializer.Serialize(file, fictionBooks);
+                            }
+                        }
+
+                        if (filetype == "XML")
+                        {
+                            var serializer = new XmlSerializer(typeof(List<FictionBook>));
+                            using (var writer = new StreamWriter(@"library.xml"))
+                            {
+                                serializer.Serialize(writer, fictionBooks);
+                            }
+
+                        }
                     }
 
                     if (userBookType == 2)
@@ -181,7 +205,7 @@ namespace library_system
                             }
                         } while (!validID);
 
-                        string selectedCategory = libraryHelper.Genres[selectedCategoryID];
+                        string selectedCategory = libraryHelper.Categories[selectedCategoryID];
                         Console.WriteLine("You have sected {0}", selectedCategory);
 
                         string title = Input("Title");
@@ -211,6 +235,26 @@ namespace library_system
                             book.Display();
                         }
 
+                        if (filetype == "JSON")
+                        {
+                            using (StreamWriter file = File.CreateText(@"library.json"))
+                            {
+                                JsonSerializer serializer = new JsonSerializer();
+                                serializer.Formatting = Formatting.Indented;
+                                serializer.Serialize(file, nonfictionBooks);
+                            }
+                        }
+
+                        if (filetype == "XML")
+                        {
+                            var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
+                            using (var writer = new StreamWriter(@"library.xml"))
+                            {
+                                serializer.Serialize(writer, nonfictionBooks);
+                            }
+
+                        }
+
                     }
 
                     if (userBookType == 3)
@@ -234,26 +278,26 @@ namespace library_system
                         {
                             book.Display();
                         }
-                    }
 
-                    if (filetype == "JSON")
-                    {
-                        using (StreamWriter file = File.CreateText(@"library.json"))
+                        if (filetype == "JSON")
                         {
-                            JsonSerializer serializer = new JsonSerializer();
-                            serializer.Formatting = Formatting.Indented;
-                            serializer.Serialize(file, fictionBooks);
-                        }
-                    }
-
-                    if (filetype == "XML")
-                    {
-                        var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
-                        using (var writer = new StreamWriter(@"library.xml"))
-                        {
-                            serializer.Serialize(writer, fictionBooks);
+                            using (StreamWriter file = File.CreateText(@"library.json"))
+                            {
+                                JsonSerializer serializer = new JsonSerializer();
+                                serializer.Formatting = Formatting.Indented;
+                                serializer.Serialize(file, magazines);
+                            }
                         }
 
+                        if (filetype == "XML")
+                        {
+                            var serializer = new XmlSerializer(typeof(List<Magazine>));
+                            using (var writer = new StreamWriter(@"library.xml"))
+                            {
+                                serializer.Serialize(writer, magazines);
+                            }
+
+                        }
                     }
 
                     //Console.WriteLine(itemsSerialized);
