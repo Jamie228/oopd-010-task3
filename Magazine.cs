@@ -7,15 +7,11 @@ using System.Xml.Serialization;
 
 namespace library_system
 {
-    public class Magazine : IUserInterfaceElement
+    public class Magazine : Publication, IUserInterfaceElement
     {
         [XmlIgnore]
         static List<string> categories = new List<string>();
         private readonly BookType bookType = new BookType();
-        public string Title { get; set; }
-        public string Publisher { get; set; }
-        public string DateOfPublication { get; set; }
-        public string ID { get; set; }
         public Magazine()
         {
 
@@ -28,11 +24,6 @@ namespace library_system
             DateOfPublication = dateOfPublication;
             bookType = BookType.Magazine;
             ID = "M-" + title.Substring(0, 4);
-        }
-
-        public void Display()
-        {
-            Console.WriteLine(ID + ", " + Title + ", " + Publisher + ", " + DateOfPublication);
         }
 
     }

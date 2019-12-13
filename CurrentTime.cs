@@ -7,7 +7,8 @@ using System.Xml.Serialization;
 
 namespace library_system
 {
-    public class CurrentTime : IUserInterfaceElement, IUpdateUserInterfaceElement
+    public class CurrentTime : IUserInterfaceElement, IUpdate  //Single Responsibility - Responsible only for the time
+    //Open/Closed using inheritance from interfaces
     {
         private DateTime time;
 

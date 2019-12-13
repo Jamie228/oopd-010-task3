@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace library_system
 {
-    interface IUserInterfaceElement
+    interface IUserInterfaceElement //Interface Segregation as not all UI elements were updateable
     {
         void Display();
         

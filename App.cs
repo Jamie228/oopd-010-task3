@@ -13,9 +13,7 @@ namespace library_system
     {
         private string filetype = "JSON";
         private LibraryHelper libraryHelper = new LibraryHelper();
-        private List<FictionBook> fictionBooks;
-        private List<NonfictionBook> nonfictionBooks;
-        private List<Magazine> magazines;
+        private List<Publication> publications;
 
         public App()
         {
@@ -24,6 +22,7 @@ namespace library_system
 
         public void Run()
         {
+            publications = new List<Publication>();
             CurrentTime time = new CurrentTime();
             while (true)
             {
@@ -41,13 +40,11 @@ namespace library_system
                             {
                                 exisitingData = reader.ReadToEnd();
                             }
-                            fictionBooks = JsonConvert.DeserializeObject<List<FictionBook>>(exisitingData);
+                            publications = JsonConvert.DeserializeObject<List<Publication>>(exisitingData);
                         }
                         else
                         {
-                            fictionBooks = new List<FictionBook>();
-                            nonfictionBooks = new List<NonfictionBook>();
-                            magazines = new List<Magazine>();
+                            publications = new List<Publication>();
                         }
                         break;
                     case "XML":
@@ -58,7 +55,7 @@ namespace library_system
                             {
                                 try
                                 {
-                                    fictionBooks = (List<FictionBook>)serializer.Deserialize(reader);
+                                    publications = (List<Publication>)serializer.Deserialize(reader);
                                 }
                                 catch
                                 {
@@ -68,9 +65,7 @@ namespace library_system
                         }
                         else
                         {
-                            fictionBooks = new List<FictionBook>();
-                            nonfictionBooks = new List<NonfictionBook>();
-                            magazines = new List<Magazine>();
+                            publications = new List<Publication>();
                         }
                         break;
                 }
@@ -138,7 +133,7 @@ namespace library_system
                         string publisher = Input("Publisher");
                         string dateOfPublication = Input("Date of publication");
 
-                        fictionBooks.Add(new FictionBook(title, author, publisher, dateOfPublication, selectedGenre, BookType.Fiction));
+                        publications.Add(new FictionBook(title, author, publisher, dateOfPublication, selectedGenre, BookType.Fiction));
 
                         another = Input("Add another? y/n");
                         if (another == "n")
@@ -147,9 +142,12 @@ namespace library_system
                         }
                         Console.Clear();
                         Console.WriteLine("All Fiction Books in library\n");
-                        foreach (var book in fictionBooks)
+                        foreach (var book in publications)
                         {
-                            book.Display();
+                            if (book.GetType() == typeof(FictionBook))
+                            {
+                                book.Display();
+                            }
                         }
 
                         if (filetype == "JSON")
@@ -158,7 +156,7 @@ namespace library_system
                             {
                                 JsonSerializer serializer = new JsonSerializer();
                                 serializer.Formatting = Formatting.Indented;
-                                serializer.Serialize(file, fictionBooks);
+                                serializer.Serialize(file, publications);
                             }
                         }
 
@@ -167,7 +165,7 @@ namespace library_system
                             var serializer = new XmlSerializer(typeof(List<FictionBook>));
                             using (var writer = new StreamWriter(@"library.xml"))
                             {
-                                serializer.Serialize(writer, fictionBooks);
+                                serializer.Serialize(writer, publications);
                             }
 
                         }
@@ -220,7 +218,7 @@ namespace library_system
                         string publisher = Input("Publisher");
                         string dateOfPublication = Input("Date of publication");
 
-                        nonfictionBooks.Add(new NonfictionBook(title, author, publisher, dateOfPublication, selectedCategory, BookType.NonFiction));
+                        publications.Add(new NonfictionBook(title, author, publisher, dateOfPublication, selectedCategory, BookType.NonFiction));
 
                         another = Input("Add another? y/n");
                         if (another == "n")
@@ -230,9 +228,12 @@ namespace library_system
 
                         Console.Clear();
                         Console.WriteLine("All Non-Fiction Books in library\n");
-                        foreach (var book in nonfictionBooks)
+                        foreach (var book in publications)
                         {
-                            book.Display();
+                            if (book.GetType() == typeof(NonfictionBook))
+                            {
+                                book.Display();
+                            }
                         }
 
                         if (filetype == "JSON")
@@ -241,7 +242,7 @@ namespace library_system
                             {
                                 JsonSerializer serializer = new JsonSerializer();
                                 serializer.Formatting = Formatting.Indented;
-                                serializer.Serialize(file, nonfictionBooks);
+                                serializer.Serialize(file, publications);
                             }
                         }
 
@@ -250,7 +251,7 @@ namespace library_system
                             var serializer = new XmlSerializer(typeof(List<NonfictionBook>));
                             using (var writer = new StreamWriter(@"library.xml"))
                             {
-                                serializer.Serialize(writer, nonfictionBooks);
+                                serializer.Serialize(writer, publications);
                             }
 
                         }
@@ -264,7 +265,7 @@ namespace library_system
                         string publisher = Input("Publisher");
                         string dateOfPublication = Input("Date of publication");
 
-                        magazines.Add(new Magazine(title, publisher, dateOfPublication, BookType.Magazine));
+                        publications.Add(new Magazine(title, publisher, dateOfPublication, BookType.Magazine));
 
                         another = Input("Add another? y/n");
                         if (another == "n")
@@ -274,9 +275,12 @@ namespace library_system
 
                         Console.Clear();
                         Console.WriteLine("All Magazines in library\n");
-                        foreach (var book in magazines)
+                        foreach (var book in publications)
                         {
-                            book.Display();
+                            if (book.GetType() == typeof(Magazine))
+                            {
+                                book.Display();
+                            }
                         }
 
                         if (filetype == "JSON")
@@ -285,7 +289,7 @@ namespace library_system
                             {
                                 JsonSerializer serializer = new JsonSerializer();
                                 serializer.Formatting = Formatting.Indented;
-                                serializer.Serialize(file, magazines);
+                                serializer.Serialize(file, publications);
                             }
                         }
 
@@ -294,7 +298,7 @@ namespace library_system
                             var serializer = new XmlSerializer(typeof(List<Magazine>));
                             using (var writer = new StreamWriter(@"library.xml"))
                             {
-                                serializer.Serialize(writer, magazines);
+                                serializer.Serialize(writer, publications);
                             }
 
                         }

@@ -7,18 +7,13 @@ using System.Xml.Serialization;
 
 namespace library_system
 {
-    public class NonfictionBook : IUserInterfaceElement
+    public class NonfictionBook : Publication, IUserInterfaceElement //Open/Closed - Uses inheritence so new books are added through different classes
     {
         [XmlIgnore]
         static List<string> categories = new List<string>();
-        static List<string> authors = new List<string>();
         BookType bookType = new BookType();
         public string Category { get; set; }
-        public string Title { get; set; }
         public string Author { get; set; }
-        public string Publisher { get; set; }
-        public string DateOfPublication { get; set; }
-        public string ID { get; set; }
         public NonfictionBook()
         {
 
@@ -37,9 +32,5 @@ namespace library_system
             bookType = BookType.NonFiction;
         }
 
-        public void Display()
-        {
-            Console.WriteLine(ID + ", " + Author + ", " + Title + ", " + Publisher + ", " + DateOfPublication);
-        }
     }
 }

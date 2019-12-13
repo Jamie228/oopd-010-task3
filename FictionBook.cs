@@ -8,17 +8,14 @@ using System.Xml.Serialization;
 namespace library_system
 {
 
-    public class FictionBook : IUserInterfaceElement //Created to adhere to Open/Closed Principle, as if another book type should be added, then another class can be created
+    public class FictionBook : Publication, IUserInterfaceElement //Open/Closed Principle - Employs Inheritence from Publication.cs
+    //Dependency Inversion - Not reliant on data in a higher class
     {
         [XmlIgnore]
 
         private readonly BookType bookType = new BookType();
         public string Genre { get; set; }
-        public string Title { get; set; }
         public string Author { get; set; }
-        public string Publisher { get; set; }
-        public string DateOfPublication { get; set; }
-        public string ID { get; set; }
         public FictionBook()
         {
 
@@ -34,9 +31,6 @@ namespace library_system
             bookType = BookType.Fiction;
         }
 
-        public void Display()
-        {
-            Console.WriteLine(ID + ", " + Author + ", " + Title + ", " + Publisher + ", " + DateOfPublication);
-        }
+        
     }
 }
